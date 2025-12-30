@@ -61,7 +61,7 @@ class WiFiConfig(BaseModel):
 class WiFiNetwork(BaseModel):
     """Validated WiFi network information"""
     ssid: str = Field(..., max_length=32)
-    bssid: str = Field(..., regex="^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$")
+    bssid: str = Field(..., pattern="^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$")
     channel: int = Field(..., ge=1, le=165)
     frequency: int = Field(..., ge=2400, le=6000)  # MHz
     signal_strength: int = Field(..., ge=-100, le=0)  # dBm
@@ -97,7 +97,7 @@ class CSIReading(BaseModel):
 
 class RFSignature(BaseModel):
     """RF signature for material/object detection"""
-    material_type: str = Field(..., regex="^[a-zA-Z_]+$", max_length=50)
+    material_type: str = Field(..., pattern="^[a-zA-Z_]+$", max_length=50)
     attenuation_2_4ghz: float = Field(..., ge=0, le=100)  # dB
     attenuation_5ghz: float = Field(..., ge=0, le=100)  # dB
     reflection_coefficient: float = Field(..., ge=0, le=1)

@@ -34,7 +34,7 @@ JWT_EXPIRATION_HOURS = 24
 
 class WebSocketMessage(BaseModel):
     """Validated WebSocket message"""
-    type: str = Field(..., regex="^[a-zA-Z_]+$", max_length=50)
+    type: str = Field(..., pattern="^[a-zA-Z_]+$", max_length=50)
     data: Dict[str, Any]
     timestamp: datetime = Field(default_factory=datetime.utcnow)
     correlation_id: str = Field(default_factory=lambda: str(uuid.uuid4()))

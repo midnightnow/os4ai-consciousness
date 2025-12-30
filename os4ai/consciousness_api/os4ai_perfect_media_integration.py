@@ -49,7 +49,7 @@ class MediaConfig(BaseModel):
     pattern_analysis: bool = True
     adversarial_protection: bool = True
     fps_limit: int = Field(30, ge=1, le=60)
-    quality: str = Field("high", regex="^(low|medium|high)$")
+    quality: str = Field("high", pattern="^(low|medium|high)$")
     device_whitelist: List[str] = Field(default_factory=list)
     
     @validator('max_resolution')
@@ -61,8 +61,8 @@ class MediaConfig(BaseModel):
 
 class MediaDevice(BaseModel):
     """Validated media device information"""
-    device_id: str = Field(..., regex="^[a-zA-Z0-9_-]+$", max_length=100)
-    device_type: str = Field(..., regex="^(camera|webcam|iphone|android|capture_card)$")
+    device_id: str = Field(..., pattern="^[a-zA-Z0-9_-]+$", max_length=100)
+    device_type: str = Field(..., pattern="^(camera|webcam|iphone|android|capture_card)$")
     name: str = Field(..., max_length=200)
     capabilities: Dict[str, Any]
     trusted: bool = False
@@ -80,7 +80,7 @@ class VideoFrame(BaseModel):
     frame_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     timestamp: datetime = Field(default_factory=datetime.utcnow)
     resolution: Tuple[int, int]
-    format: str = Field("rgb", regex="^(rgb|bgr|yuv|gray)$")
+    format: str = Field("rgb", pattern="^(rgb|bgr|yuv|gray)$")
     privacy_processed: bool = False
     anomaly_score: float = Field(0.0, ge=0.0, le=1.0)
     
@@ -93,11 +93,11 @@ class VideoFrame(BaseModel):
 
 class PatternDetection(BaseModel):
     """Pattern detection results with confidence"""
-    pattern_type: str = Field(..., regex="^[a-zA-Z_]+$", max_length=50)
+    pattern_type: str = Field(..., pattern="^[a-zA-Z_]+$", max_length=50)
     confidence: float = Field(..., ge=0.0, le=1.0)
     location: Optional[Dict[str, int]]  # x, y, width, height
     metadata: Dict[str, Any] = Field(default_factory=dict)
-    risk_level: str = Field("low", regex="^(low|medium|high|critical)$")
+    risk_level: str = Field("low", pattern="^(low|medium|high|critical)$")
 
 class MediaAwareness(BaseModel):
     """Comprehensive media consciousness state"""

@@ -10,7 +10,7 @@ import json
 from datetime import datetime, timezone
 
 # Import safety middleware
-from app.middleware.consciousness_safety_validator import (
+from os4ai.middleware.consciousness_safety_validator import (
     ConsciousnessSafetyMiddleware,
     HardwareSafetyChecks,
     audit_logger,
@@ -523,7 +523,7 @@ async def emergency_stop_endpoint(reason: str = "User initiated"):
 async def get_safety_status():
     """Get comprehensive safety system status"""
     try:
-        from app.middleware.consciousness_safety_validator import SafetyEnvironmentValidator
+        from os4ai.middleware.consciousness_safety_validator import SafetyEnvironmentValidator
         
         safety_status = SafetyEnvironmentValidator.get_safety_status()
         

@@ -46,7 +46,7 @@ class AcousticConfig(BaseModel):
     echolocation_enabled: bool = True
     privacy_mode: bool = True
     noise_reduction: bool = True
-    spatial_resolution: str = Field("high", regex="^(low|medium|high)$")
+    spatial_resolution: str = Field("high", pattern="^(low|medium|high)$")
     max_recording_duration: int = Field(5, ge=1, le=30)
     
     @validator('sample_rate')

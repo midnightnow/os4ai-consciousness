@@ -33,9 +33,9 @@ security = HTTPBearer()
 # Pydantic models with comprehensive validation
 class ThermalSensorReading(BaseModel):
     """Validated thermal sensor reading"""
-    sensor_id: str = Field(..., regex="^[a-zA-Z0-9_-]+$", max_length=50)
+    sensor_id: str = Field(..., pattern="^[a-zA-Z0-9_-]+$", max_length=50)
     temperature: float = Field(..., ge=-273.15, le=1000.0)  # Physical limits
-    unit: str = Field("celsius", regex="^(celsius|fahrenheit|kelvin)$")
+    unit: str = Field("celsius", pattern="^(celsius|fahrenheit|kelvin)$")
     timestamp: datetime = Field(default_factory=datetime.utcnow)
     
     @validator('sensor_id')
